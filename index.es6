@@ -1,8 +1,9 @@
 import flyd from 'flyd'
 import qs from 'qs'
 
-module.exports = flyd.curryN(2, (key, stream) => {
+module.exports = key => {
   const query = qs.parse(location.search.replace('?', ''))
+  const stream = flyd.stream()
   flyd.scan(
     (query, val) => {
       query = qs.parse(location.search.replace('?', ''))
@@ -15,4 +16,4 @@ module.exports = flyd.curryN(2, (key, stream) => {
   )
   if(query[key]) stream(query[key])
   return stream
-})
+}

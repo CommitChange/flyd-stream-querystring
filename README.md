@@ -1,13 +1,13 @@
 
 # flyd-stream-querystring
 
-Flyd module for taking a stream of values and pushing them into the URL querystring, using any key that you want. You may do this with as many streams as you want simultaneously. Also, the values from the URL querystring will pushed to the streams on pageload, if present. This is useful for storing and tracking UI state in the URL to be restored on pageload (like for searching, filtering, or tracking what page they are on).
+Flyd module for creating a stream of values and pushing them into the URL querystring, using any key that you want. You may do this with as many streams as you want simultaneously. Also, the values from the URL querystring will pushed to the streams on pageload, if present. This is useful for storing and tracking UI state in the URL to be restored on pageload (like for searching, filtering, or tracking what page they are on).
 
 __Signature__
 
-`String -> Stream a -> Stream a`
+`String -> Stream a`
 
-(This function only returns the stream that you give it, and nothing new; it only creates a side effect in the url)
+This module exports a single function that takes a String (a query parameter key name) and returns a stream whose values will be bound to that querystring parameter.
 
 __Usage__
 
@@ -17,23 +17,22 @@ const flyd_queryString = require('flyd-stream-querystring')
 
 location.search // -> ""
 
-const s1 = flyd.stream(), s2 = flyd.stream()
-flyd_queryString('finn', s1)
-flyd_queryString('jake', s2)
+const finn = flyd_queryString('finn')
+const jake = flyd_queryString('jake')
 
-s1('human')
+finn('human')
 location.search // -> "?finn=human"
-s2('dog')
+jake('dog')
 location.search // -> "?finn=human&jake=dog"
-s1('human-boy') 
+finn('human-boy') 
 location.search // -> "?finn=human-boy&jake=dog"
 
-Pushing empty string or null to a querystring stream makes the value blank
-s1(null)
+// Pushing empty string or null to a querystring stream makes the value blank
+finn(null)
 location.search // -> "?finn=&jake=dog"
 
-Pushing undefined to a querystring stream removes it from the url
-s1(undefined)
+// Pushing undefined to a querystring stream removes it from the url
+finn(undefined)
 location.search // -> "?jake=dog"
 ```
 
