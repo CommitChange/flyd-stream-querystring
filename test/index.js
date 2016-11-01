@@ -34,3 +34,19 @@ test('it can set multiple query string streams', () => {
   s1(1); s2(2); s1(3)
   assert(/s1=3&s2=2/.test(location.href))
 })
+
+test('setting a querystring stream to null makes it blank', () => {
+  const s = flyd.stream()
+  flyd_queryString('nullo', s)
+  s('hi')
+  s(null)
+  assert(/nullo=$/.test(location.href))
+})
+
+test('setting a querystring stream to undefined removes it', () => {
+  const s = flyd.stream()
+  flyd_queryString('nullo', s)
+  s('hi')
+  s(undefined)
+  assert(!location.href.match(/nullo/))
+})

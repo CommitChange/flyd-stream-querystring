@@ -11,16 +11,15 @@ var _qs2 = _interopRequireDefault(_qs);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getQuery() {
-  var href = location.href;
-  var search = href.match(/\?.+$/);
-  var query = search ? _qs2.default.parse(search[0].replace('?', '')) : {};
+  var search = location.search.replace("?", "");
+  var query = search ? _qs2.default.parse(search) : {};
   return query;
 }
 
 module.exports = _flyd2.default.curryN(2, function (key, stream) {
-  var query = getQuery();
+  var query = _qs2.default.parse(location.search.replace('?', ''));
   _flyd2.default.scan(function (query, val) {
-    query = getQuery();
+    query = _qs2.default.parse(location.search.replace('?', ''));
     query[key] = val;
     window.history.pushState({}, null, '?' + _qs2.default.stringify(query));
     return query;
