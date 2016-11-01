@@ -19,8 +19,8 @@ location.search // -> ""
 
 const finn = stream(), jake = stream()
 
-queryString('finn')
-queryString('jake')
+queryString('finn', finn)
+queryString('jake', jake)
 
 finn('human')
 location.search // -> "?finn=human"
