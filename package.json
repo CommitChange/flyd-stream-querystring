@@ -1,6 +1,6 @@
 {
   "name": "flyd-stream-querystring",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Push every value from a flyd stream into the url query. And pull the url query value on pageload. Useful for persistent page state like searches.",
   "main": "index.js",
   "scripts": {
