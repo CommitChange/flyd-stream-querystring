@@ -10,12 +10,6 @@ var _qs2 = _interopRequireDefault(_qs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getQuery() {
-  var search = location.search.replace("?", "");
-  var query = search ? _qs2.default.parse(search) : {};
-  return query;
-}
-
 module.exports = _flyd2.default.curryN(2, function (key, stream) {
   var query = _qs2.default.parse(location.search.replace('?', ''));
   _flyd2.default.scan(function (query, val) {

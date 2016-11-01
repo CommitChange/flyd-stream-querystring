@@ -1,12 +1,6 @@
 import flyd from 'flyd'
 import qs from 'qs'
 
-function getQuery() {
-  const search = location.search.replace("?", "")
-  const query = search ? qs.parse(search) : {}
-  return query
-}
-
 module.exports = flyd.curryN(2, (key, stream) => {
   const query = qs.parse(location.search.replace('?', ''))
   flyd.scan(
